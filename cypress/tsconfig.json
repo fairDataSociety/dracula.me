@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "../node_modules",
+    "target": "es6",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "types": [
+      "cypress",
+      "cypress-commands",
+      "cypress-file-upload"
+    ]
+  },
+  "include": [
+    "**/*.ts"
+  ]
+}

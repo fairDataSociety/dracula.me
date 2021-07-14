@@ -1,0 +1,93 @@
+{
+  "extends": [
+    "config:base",
+    ":gitSignOff",
+    ":maintainLockFilesWeekly",
+    ":dependencyDashboard"
+  ],
+  "labels": [
+    "type: maintenance"
+  ],
+  "packageRules": [
+    {
+      "updateTypes": [
+        "pin"
+      ]
+    },
+    {
+      "groupName": "linters",
+      "extends": "packages:linters"
+    },
+    {
+      "groupName": "eslint",
+      "extends": "monorepo:typescript-eslint",
+      "matchPackagePatterns": [
+        "^eslint"
+      ]
+    },
+    {
+      "groupName": "cypress",
+      "matchPackagePatterns": [
+        "^@cypress",
+        "^cypress"
+      ]
+    },
+    {
+      "groupName": "react",
+      "extends": "monorepo:react"
+    },
+    {
+      "groupName": "react router",
+      "extends": "monorepo:reactrouter"
+    },
+    {
+      "groupName": "definitely typed",
+      "matchPackagePatterns": [
+        "^@types/"
+      ]
+    },
+    {
+      "groupName": "vega",
+      "packagePatterns": [
+        "vega",
+        "vega-embed",
+        "vega-lite"
+      ]
+    },
+    {
+      "groupName": "markmap",
+      "matchPackagePatterns": [
+        "markmap-view",
+        "markmap-lib",
+        "markmap-common"
+      ]
+    },
+    {
+      "groupName": "vega",
+      "packagePatterns": [
+        "vega",
+        "vega-embed",
+        "vega-lite"
+      ]
+    },
+    {
+      "groupName": "i18next",
+      "matchPackagePatterns": [
+        "i18next",
+        "i18next-browser-languagedetector",
+        "i18next-http-backend",
+        "react-i18next"
+      ]
+    },
+    {
+      "groupName": "jest",
+      "matchPackagePatterns": [
+        "^@testing-library/"
+      ]
+    }
+  ],
+  "prHourlyLimit": 0,
+  "schedule": [
+    "on Saturday"
+  ]
+}
