@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /*
  * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
  *
@@ -9,11 +11,14 @@ import { ForkAwesomeIcon } from '../../common/fork-awesome/fork-awesome-icon'
 import { Trans, useTranslation } from 'react-i18next'
 import { Button } from 'react-bootstrap'
 
-export const NewNoteButton: React.FC = () => {
+export interface NewNoteProps {
+  setNewNote?: any
+}
+export const NewNoteButton: React.FC<NewNoteProps> = ({ setNewNote }) => {
   useTranslation()
 
   return (
-    <Button className='mx-2' size='sm' variant='primary'>
+    <Button onClick={setNewNote} className='mx-2' size='sm' variant='primary'>
       <ForkAwesomeIcon icon='plus' /> <Trans i18nKey='editor.appBar.new' />
     </Button>
   )

@@ -30,6 +30,7 @@ export interface AppBarProps {
   password?: string
   setFiles?: any
   openFileListModal?: any
+  setNewNote?: any
 }
 
 export const AppBar: React.FC<AppBarProps> = ({
@@ -38,7 +39,8 @@ export const AppBar: React.FC<AppBarProps> = ({
   openSaveFileModal,
   password,
   setFiles,
-  openFileListModal
+  openFileListModal,
+  setNewNote
 }) => {
   // const noteFrontmatter = useApplicationState((state) => state.noteDetails.)
 
@@ -55,7 +57,7 @@ export const AppBar: React.FC<AppBarProps> = ({
         </ShowIf>
       </Nav>
       <Nav className='d-flex align-items-center text-secondary'>
-        <NewNoteButton />
+        <NewNoteButton setNewNote={setNewNote} />
         <Button className='mx-2' size='sm' variant='primary' onClick={openModal}>
           FD Connect
         </Button>

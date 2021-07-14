@@ -84,8 +84,9 @@ export const EditorPage: React.FC = () => {
   useEditorModeFromUrl()
 
   useEffect(() => {
-    setNoteDataFromServer({ content: 'asd' })
+    setNoteDataFromServer({ content: '' })
   }, [])
+
   useEffect(() => {
     setError(false)
     setLoading(false)
@@ -156,6 +157,9 @@ export const EditorPage: React.FC = () => {
   const handleCloseFileListModal = () => {
     setOpenFilesList(false)
   }
+  const setNewNote = () => {
+    setNoteDataFromServer({ content: '' })
+  }
   useEffect(() => {
     const file = new Blob([markdownContent], { type: 'text/plain;charset=utf-8' })
     setFile(file)
@@ -187,6 +191,7 @@ export const EditorPage: React.FC = () => {
           password={password}
           setFiles={setFiles}
           openFileListModal={openFileListModal}
+          setNewNote={setNewNote}
         />
 
         <div className={'container'}>
