@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { DomElement } from 'domhandler'
+import DomElement from 'domhandler'
 import React, { ReactElement } from 'react'
 import { ComponentReplacer, NativeRenderer, SubNodeTransform } from '../ComponentReplacer'
 
@@ -20,7 +20,7 @@ export class LinkReplacer extends ComponentReplacer {
   }
 
   public getReplacement(
-    node: DomElement,
+    node: any,
     subNodeTransform: SubNodeTransform,
     nativeRenderer: NativeRenderer
   ): ReactElement | null | undefined {

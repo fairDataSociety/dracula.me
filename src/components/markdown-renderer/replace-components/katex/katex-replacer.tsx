@@ -4,23 +4,23 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import DomElement from 'domhandler'
 import MarkdownIt from 'markdown-it'
 import mathJax from 'markdown-it-mathjax'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import './katex.scss'
 
-const getNodeIfKatexBlock = (node: DomElement): DomElement | undefined => {
+const getNodeIfKatexBlock = (node: any): DomElement | undefined => {
   if (node.name !== 'p' || !node.children || node.children.length === 0) {
     return
   }
-  return node.children.find((subnode) => {
+  return node.children.find((subnode: any) => {
     return subnode.name === 'app-katex' && subnode.attribs?.inline === undefined
   })
 }
 
-const getNodeIfInlineKatex = (node: DomElement): DomElement | undefined => {
+const getNodeIfInlineKatex = (node: any): any | undefined => {
   return node.name === 'app-katex' && node.attribs?.inline !== undefined ? node : undefined
 }
 
@@ -36,7 +36,7 @@ export class KatexReplacer extends ComponentReplacer {
     afterDisplayMath: '</app-katex>'
   })
 
-  public getReplacement(node: DomElement): React.ReactElement | undefined {
+  public getReplacement(node: any): React.ReactElement | undefined {
     const katex = getNodeIfKatexBlock(node) || getNodeIfInlineKatex(node)
     if (katex?.children && katex.children[0]) {
       const mathJaxContent = katex.children[0]?.data as string

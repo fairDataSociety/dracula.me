@@ -4,18 +4,18 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import DomElement from 'domhandler'
 import { ReactElement } from 'react'
 import { ComponentReplacer, NativeRenderer, SubNodeTransform } from '../ComponentReplacer'
 
-const isColorExtraElement = (node: DomElement | undefined): boolean => {
+const isColorExtraElement = (node: any | undefined): boolean => {
   if (!node || !node.attribs || !node.attribs.class || !node.attribs['data-color']) {
     return false
   }
   return node.name === 'span' && node.attribs.class === 'quote-extra'
 }
 
-const findQuoteOptionsParent = (nodes: DomElement[]): DomElement | undefined => {
+const findQuoteOptionsParent = (nodes: any[]): any | undefined => {
   return nodes.find((child) => {
     if (child.name !== 'p' || !child.children || child.children.length < 1) {
       return false
@@ -26,7 +26,7 @@ const findQuoteOptionsParent = (nodes: DomElement[]): DomElement | undefined => 
 
 export class ColoredBlockquoteReplacer extends ComponentReplacer {
   public getReplacement(
-    node: DomElement,
+    node: any,
     subNodeTransform: SubNodeTransform,
     nativeRenderer: NativeRenderer
   ): ReactElement | undefined {
@@ -42,7 +42,7 @@ export class ColoredBlockquoteReplacer extends ComponentReplacer {
     if (!optionsTag) {
       return
     }
-    paragraph.children = childElements.filter((elem) => !isColorExtraElement(elem))
+    paragraph.children = childElements.filter((elem: any) => !isColorExtraElement(elem))
     const attributes = optionsTag.attribs
     if (!attributes || !attributes['data-color']) {
       return

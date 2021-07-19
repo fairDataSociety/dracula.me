@@ -17,8 +17,6 @@ import {
   updateNoteTitleByFirstHeading
 } from '../../redux/note-details/methods'
 import { ShowIf } from '../common/show-if/show-if'
-import { ErrorWhileLoadingNoteAlert } from '../document-read-only-page/ErrorWhileLoadingNoteAlert'
-import { LoadingNoteAlert } from '../document-read-only-page/LoadingNoteAlert'
 import { AppBar, AppBarMode } from './app-bar/app-bar'
 import { EditorMode } from './app-bar/editor-view-mode'
 import { EditorPane } from './editor-pane/editor-pane'
@@ -31,11 +29,7 @@ import { useEditorModeFromUrl } from './hooks/useEditorModeFromUrl'
 import { IframeEditorToRendererCommunicatorContextProvider } from './render-context/iframe-editor-to-renderer-communicator-context-provider'
 
 import { useApplicationState } from '../../hooks/common/use-application-state'
-import { Button, Modal } from 'react-bootstrap'
-import { UploadFileComponent, LoginComponent, ListFilesComponent, LoadFilesComponent } from 'fairdrive-protocol'
-import Backdrop from '@material-ui/core/Backdrop'
-import { Fade } from '@material-ui/core'
-import { appendFileSync } from 'fs'
+import { UploadFileComponent, LoginComponent, ListFilesComponent } from 'fd-testing-protocol'
 export interface EditorPagePathParams {
   id: string
 }
@@ -152,13 +146,14 @@ export const EditorPage: React.FC = () => {
   }
 
   const openFileListModal = () => {
-    if (files) setOpenFilesList(true)
+    if (files) setOpenFilesList(!openFilesList)
   }
   const handleCloseFileListModal = () => {
     setOpenFilesList(false)
   }
   const setNewNote = () => {
     setNoteDataFromServer({ content: '' })
+    setFileContent('')
   }
   useEffect(() => {
     const file = new Blob([markdownContent], { type: 'text/plain;charset=utf-8' })
@@ -169,15 +164,17 @@ export const EditorPage: React.FC = () => {
     if (password) {
       handleClose()
     }
-    if (files && !openSaveFile && !openLogin) {
-      openFileListModal()
-    }
+    // if (files) {
+    //   openFileListModal()
+    // }
     if (uploadRes === true) {
       handleCloseSaveFileModal()
     }
     if (fileContent) {
-      setNoteDataFromServer({ content: fileContent })
-      setOpenFilesList(false)
+      if (fileContent !== markdownContent) {
+        setNoteDataFromServer({ content: fileContent })
+        setOpenFilesList(false)
+      }
     }
   }, [password, files, file, fileContent, uploadRes])
 
@@ -194,10 +191,10 @@ export const EditorPage: React.FC = () => {
           setNewNote={setNewNote}
         />
 
-        <div className={'container'}>
+        {/* <div className={'container'}>
           <ErrorWhileLoadingNoteAlert show={error} />
-          <LoadingNoteAlert show={loading} />
-        </div>
+          {/* <LoadingNoteAlert show={loading} /> 
+        </div> */}
         <ShowIf condition={!error && !loading && !openLogin && !openFilesList}>
           <div className={'flex-fill d-flex h-100 w-100 overflow-hidden flex-row'}>
             <Splitter

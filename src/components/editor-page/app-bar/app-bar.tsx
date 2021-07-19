@@ -15,8 +15,7 @@ import { HelpButton } from './help-button/help-button'
 import { SyncScrollButtons } from './sync-scroll-buttons/sync-scroll-buttons'
 
 import { NewNoteButton } from './new-note-button'
-import { useApplicationState } from '../../../hooks/common/use-application-state'
-import { UploadFileComponent, LoginComponent, ListFilesComponent, LoadFilesComponent } from 'fairdrive-protocol'
+import { LoadFilesComponent } from 'fd-testing-protocol'
 
 export enum AppBarMode {
   BASIC,
@@ -67,9 +66,9 @@ export const AppBar: React.FC<AppBarProps> = ({
           </Button>
         )}
         {password && (
-          <div onClick={openFileListModal}>
+          <Button onClick={openFileListModal}>
             <LoadFilesComponent password={password} setFiles={setFiles}></LoadFilesComponent>
-          </div>
+          </Button>
         )}
         {/* Add FD login
         <ShowIf condition={!userExists}>

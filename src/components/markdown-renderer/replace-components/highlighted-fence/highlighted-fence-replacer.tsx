@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import DomElement from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { HighlightedCode } from './highlighted-code/highlighted-code'
@@ -12,7 +12,7 @@ import { HighlightedCode } from './highlighted-code/highlighted-code'
 export class HighlightedCodeReplacer extends ComponentReplacer {
   private lastLineNumber = 0
 
-  public getReplacement(codeNode: DomElement): React.ReactElement | undefined {
+  public getReplacement(codeNode: any): React.ReactElement | undefined {
     if (
       codeNode.name !== 'code' ||
       !codeNode.attribs ||

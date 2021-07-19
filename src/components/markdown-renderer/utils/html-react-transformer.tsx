@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import DomElement from 'domhandler'
 import React, { ReactElement, Suspense } from 'react'
 import { convertNodeToElement, Transform } from 'react-html-parser'
 import { ComponentReplacer, NativeRenderer, SubNodeTransform } from '../replace-components/ComponentReplacer'
@@ -15,7 +15,7 @@ export interface TextDifferenceResult {
   lastUsedLineId: number
 }
 
-export const calculateKeyFromLineMarker = (node: DomElement, lineKeys?: LineKeys[]): string | undefined => {
+export const calculateKeyFromLineMarker = (node: any, lineKeys?: LineKeys[]): string | undefined => {
   if (!node.attribs || lineKeys === undefined) {
     return
   }
@@ -48,7 +48,7 @@ export const calculateKeyFromLineMarker = (node: DomElement, lineKeys?: LineKeys
 }
 
 export const findNodeReplacement = (
-  node: DomElement,
+  node: any,
   allReplacers: ComponentReplacer[],
   subNodeTransform: SubNodeTransform,
   nativeRenderer: NativeRenderer
@@ -58,7 +58,7 @@ export const findNodeReplacement = (
     .find((replacement) => replacement !== undefined)
 }
 
-export const renderNativeNode = (node: DomElement, key: string, transform: Transform): ReactElement => {
+export const renderNativeNode = (node: any, key: string, transform: Transform): ReactElement => {
   if (node.attribs === undefined) {
     node.attribs = {}
   }

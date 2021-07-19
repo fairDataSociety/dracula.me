@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import DomElement from 'domhandler'
 
 export const getAttributesFromHedgeDocTag = (
-  node: DomElement,
+  node: any,
   tagName: string
 ): { [s: string]: string } | undefined => {
   if (node.name !== `app-${tagName}` || !node.attribs) {

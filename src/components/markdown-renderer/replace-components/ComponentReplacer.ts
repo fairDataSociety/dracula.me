@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import DomElement from 'domhandler'
 import MarkdownIt from 'markdown-it'
 import { ReactElement } from 'react'
 
-export type SubNodeTransform = (node: DomElement, subIndex: number) => ReactElement | void | null
+export type SubNodeTransform = (node: any, subIndex: number) => ReactElement | void | null
 
 export type NativeRenderer = () => ReactElement
 
@@ -16,7 +16,7 @@ export type MarkdownItPlugin = MarkdownIt.PluginSimple | MarkdownIt.PluginWithOp
 
 export abstract class ComponentReplacer {
   public abstract getReplacement(
-    node: DomElement,
+    node: any,
     subNodeTransform: SubNodeTransform,
     nativeRenderer: NativeRenderer
   ): ReactElement | null | undefined

@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import DomElement from 'domhandler'
 import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { MarkmapFrame } from './markmap-frame'
 
 export class MarkmapReplacer implements ComponentReplacer {
-  getReplacement(codeNode: DomElement): React.ReactElement | undefined {
+  getReplacement(codeNode: any): React.ReactElement | undefined {
     if (
       codeNode.name !== 'code' ||
       !codeNode.attribs ||

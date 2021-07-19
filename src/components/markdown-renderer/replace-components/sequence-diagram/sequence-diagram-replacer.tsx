@@ -4,14 +4,14 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { DomElement } from 'domhandler'
+import DomElement from 'domhandler'
 import React, { Fragment } from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import { MermaidChart } from '../mermaid/mermaid-chart'
 import { DeprecationWarning } from './deprecation-warning'
 
 export class SequenceDiagramReplacer implements ComponentReplacer {
-  getReplacement(codeNode: DomElement): React.ReactElement | undefined {
+  getReplacement(codeNode: any): React.ReactElement | undefined {
     if (
       codeNode.name !== 'code' ||
       !codeNode.attribs ||
