@@ -7849,7 +7849,12 @@ ejs@^2.6.1:
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.7.4.tgz#48661287573dcc53e366c7a1ae52c3a120eec9ba"
   integrity sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA==
 
-electron-to-chromium@^1.3.378, electron-to-chromium@^1.3.564, electron-to-chromium@^1.3.723:
+electron-to-chromium@^1.3.378:
+  version "1.3.780"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.780.tgz#f946e10dc0005a3b59b9afa2d2c92f5c421f7fc5"
+  integrity sha512-2KQ9OYm9WMUNpAPA/4aerURl3hwRc9tNlpsiEj3Y8Gf7LVf26NzyLIX2v0hSagQwrS9+cWab+28A2GPKDoVNRA==
+
+electron-to-chromium@^1.3.564, electron-to-chromium@^1.3.723:
   version "1.3.779"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.779.tgz#de55492a756deec63424f89fbe62aec9776f0e6d"
   integrity sha512-nreave0y/1Qhmo8XtO6C/LpawNyC6U26+q7d814/e+tIqUK073pM+4xW7WUXyqCRa5K4wdxHmNMBAi8ap9nEew==
@@ -8925,10 +8930,10 @@ fd-slicer@~1.1.0:
   dependencies:
     pend "~1.2.0"
 
-fd-testing-protocol@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/fd-testing-protocol/-/fd-testing-protocol-0.0.1.tgz#d586bcd804e4ae8229ad4f8016a03bdc4f09dd15"
-  integrity sha512-7CiycVTBF1qoZFpAGDhrfaWAHdqpjfYFCKoBtgY183oHqUBsmJl0PB8psEcac+UreaTc8fxnyR3vEJ3ECfsz+w==
+fd-t-p@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/fd-t-p/-/fd-t-p-0.0.2.tgz#c39b356341af24689162c0576ceac94c060bbbb2"
+  integrity sha512-BPBHtkA82q6HRwU0H1ThRb0PZCER5kcvkjjOV4XRWqmz/aKKp6U7KVUBlGYh53aD9tB0dxJzfkQBfoXRnpgLww==
   dependencies:
     "@material-ui/styles" "^4.11.3"
     "@types/jest" "^25.1.4"

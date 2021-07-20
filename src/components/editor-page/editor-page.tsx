@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /*
  * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
  *
@@ -29,7 +30,7 @@ import { useEditorModeFromUrl } from './hooks/useEditorModeFromUrl'
 import { IframeEditorToRendererCommunicatorContextProvider } from './render-context/iframe-editor-to-renderer-communicator-context-provider'
 
 import { useApplicationState } from '../../hooks/common/use-application-state'
-import { UploadFileComponent, LoginComponent, ListFilesComponent } from 'fd-testing-protocol'
+import { UploadFileComponent, LoginComponent, ListFilesComponent } from 'fd-t-p'
 export interface EditorPagePathParams {
   id: string
 }
@@ -130,6 +131,8 @@ export const EditorPage: React.FC = () => {
   const [openFilesList, setOpenFilesList] = useState(false)
   const [openSaveFile, setOpenSaveFile] = useState(false)
   const [uploadRes, setUploadRes] = useState(false)
+  const [firstFileLoad, setFirstFileLoad] = useState(true)
+  const [pod, setPod] = useState('')
 
   const openModal = () => {
     setOpenLogin(true)
@@ -170,6 +173,10 @@ export const EditorPage: React.FC = () => {
     if (uploadRes === true) {
       handleCloseSaveFileModal()
     }
+    if (files && firstFileLoad) {
+      setOpenFilesList(true)
+      setFirstFileLoad(false)
+    }
     if (fileContent) {
       if (fileContent !== markdownContent) {
         setNoteDataFromServer({ content: fileContent })
@@ -189,6 +196,8 @@ export const EditorPage: React.FC = () => {
           setFiles={setFiles}
           openFileListModal={openFileListModal}
           setNewNote={setNewNote}
+          setPodName={setPod}
+          podName={pod}
         />
 
         {/* <div className={'container'}>
@@ -213,10 +222,14 @@ export const EditorPage: React.FC = () => {
             podName={'Fairdrive'}></LoginComponent>
         </ShowIf>
         <ShowIf condition={openFilesList}>
-          <ListFilesComponent password={password} files={files} setFile={setFileContent}></ListFilesComponent>
+          <ListFilesComponent
+            podName={pod}
+            password={password}
+            files={files}
+            setFile={setFileContent}></ListFilesComponent>
         </ShowIf>
         <ShowIf condition={openSaveFile}>
-          <UploadFileComponent file={file} setUploadRes={setUploadRes}></UploadFileComponent>
+          <UploadFileComponent podName={pod} file={file} setUploadRes={setUploadRes}></UploadFileComponent>
         </ShowIf>
       </div>
     </IframeEditorToRendererCommunicatorContextProvider>

@@ -6,8 +6,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React from 'react'
-import { Button, Nav, Navbar } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Button, Dropdown, Nav, Navbar } from 'react-bootstrap'
 import { ShowIf } from '../../common/show-if/show-if'
 import { DarkModeButton } from './dark-mode-button'
 import { EditorViewMode } from './editor-view-mode'
@@ -15,7 +15,7 @@ import { HelpButton } from './help-button/help-button'
 import { SyncScrollButtons } from './sync-scroll-buttons/sync-scroll-buttons'
 
 import { NewNoteButton } from './new-note-button'
-import { LoadFilesComponent } from 'fd-testing-protocol'
+import { LoadFilesComponent, ListPodsComponent, OpenPodComponent } from 'fd-t-p'
 
 export enum AppBarMode {
   BASIC,
@@ -30,6 +30,8 @@ export interface AppBarProps {
   setFiles?: any
   openFileListModal?: any
   setNewNote?: any
+  setPodName?: any
+  podName?: any
 }
 
 export const AppBar: React.FC<AppBarProps> = ({
@@ -39,9 +41,12 @@ export const AppBar: React.FC<AppBarProps> = ({
   password,
   setFiles,
   openFileListModal,
-  setNewNote
+  setNewNote,
+  setPodName,
+  podName
 }) => {
   // const noteFrontmatter = useApplicationState((state) => state.noteDetails.)
+  const [pods, setPod] = useState([])
 
   return (
     <Navbar bg={'light'}>
@@ -57,19 +62,42 @@ export const AppBar: React.FC<AppBarProps> = ({
       </Nav>
       <Nav className='d-flex align-items-center text-secondary'>
         <NewNoteButton setNewNote={setNewNote} />
-        <Button className='mx-2' size='sm' variant='primary' onClick={openModal}>
+        <Button className='mx-3' size='sm' variant='primary' onClick={openModal}>
           FD Connect
         </Button>
         {password && (
-          <Button className='mx-2' size='sm' variant='primary' onClick={openSaveFileModal}>
+          <Dropdown className='mx-3'>
+            <Dropdown.Toggle>
+              <ListPodsComponent setPod={setPod}></ListPodsComponent>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {pods.map((pod) => {
+                return (
+                  <Dropdown.Item
+                    onClick={() => {
+                      setPodName(pod)
+                      console.log(pod)
+                      console.log(podName)
+                    }}>
+                    <OpenPodComponent password={password} podName={pod}></OpenPodComponent>
+                  </Dropdown.Item>
+                )
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+        )}
+        {password && (
+          <Button className='mx-3' size='sm' variant='primary' onClick={openSaveFileModal}>
             Save File
           </Button>
         )}
         {password && (
-          <Button onClick={openFileListModal}>
-            <LoadFilesComponent password={password} setFiles={setFiles}></LoadFilesComponent>
+          <Button className='mx-3' size='sm' variant='primary' onClick={openFileListModal}>
+            <LoadFilesComponent podName={podName} password={password} setFiles={setFiles}></LoadFilesComponent>
           </Button>
         )}
+
         {/* Add FD login
         <ShowIf condition={!userExists}>
           <SignInButton size={'sm'} />
