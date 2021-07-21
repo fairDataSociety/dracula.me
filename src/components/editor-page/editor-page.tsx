@@ -182,6 +182,7 @@ export const EditorPage: React.FC = () => {
         setNoteDataFromServer({ content: fileContent })
         setOpenFilesList(false)
       }
+      setFileContent(null)
     }
   }, [password, files, file, fileContent, uploadRes])
 
