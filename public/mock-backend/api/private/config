@@ -42,7 +42,7 @@
       "commit": "mock"
   },
   "iframeCommunication": {
-    "editorOrigin": "http://localhost:3000/",
-    "rendererOrigin": "http://localhost:3000/"
+    "editorOrigin": "35.180.243.234:443",
+    "rendererOrigin": "35.180.243.234:443"
   }
 }
