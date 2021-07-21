@@ -113,7 +113,7 @@
     "start": "cross-env PORT=3000 craco start",
     "start:test": "cross-env REACT_APP_TEST_MODE=true yarn start",
     "start:for-real-backend": "cross-env REACT_APP_BACKEND_BASE_URL=http://localhost:3000/ yarn start",
-    "serve:build": "http-server build/ -s -p 3001 -P \"http://localhost:3001?\"",
+    "serve:build": "http-server build/ -s -p 3000 -P \"http://localhost:3000?\"",
     "build:test": "cross-env REACT_APP_TEST_MODE=true craco build",
     "build:mock": "cross-env craco build",
     "build:production": "(cross-env node check-build-env-vars.js) && (cross-env craco build)",
