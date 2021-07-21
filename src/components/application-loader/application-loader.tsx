@@ -34,19 +34,15 @@ export const ApplicationLoader: React.FC = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    for (const task of initTasks) {
-      runTask(task.task).catch((reason: Error) => {
-        console.error(reason)
-        setFailedTitle(task.name)
-      })
-    }
+    // for (const task of initTasks) {
+    //   runTask(task.task).catch((reason: Error) => {
+    //     console.error(reason)
+    //     setFailedTitle(task.name)
+    //   })
+    // }
   }, [initTasks, runTask])
 
   const tasksAreRunning = doneTasks < initTasks.length || initTasks.length === 0
 
-  if (tasksAreRunning) {
-    return <LoadingScreen failedTitle={failedTitle} />
-  } else {
-    return <Suspense fallback={<LoadingScreen />}>{children}</Suspense>
-  }
+  return <Suspense fallback={<LoadingScreen />}>{children}</Suspense>
 }
