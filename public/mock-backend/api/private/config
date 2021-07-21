@@ -42,7 +42,7 @@
       "commit": "mock"
   },
   "iframeCommunication": {
-    "editorOrigin": "35.180.243.234:443",
-    "rendererOrigin": "35.180.243.234:443"
+    "editorOrigin": "35.180.243.234",
+    "rendererOrigin": "35.180.243.234"
   }
 }
