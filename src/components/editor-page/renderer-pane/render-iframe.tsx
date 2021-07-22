@@ -111,7 +111,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   return (
     <Fragment>
       <ShowOnPropChangeImageLightbox details={lightboxDetails} />
-      {/* <iframe
+      <iframe
         style={{ height: `${frameHeight}px` }}
         data-cy={'documentIframe'}
         onLoad={onIframeLoad}
@@ -120,7 +120,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
         {...(isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' })}
         ref={frameReference}
         className={`border-0 ${frameClasses ?? ''}`}
-      /> */}
+      />
     </Fragment>
   )
 }
