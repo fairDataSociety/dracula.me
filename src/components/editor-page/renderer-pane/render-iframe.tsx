@@ -41,15 +41,15 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   const [lightboxDetails, setLightboxDetails] = useState<ImageDetails | undefined>(undefined)
 
   const frameReference = useRef<HTMLIFrameElement>(null)
-  // const rendererOrigin = useApplicationState((state) => state.config.iframeCommunication.rendererOrigin)
-  // const renderPageUrl = `${rendererOrigin}render`
+  const rendererOrigin = useApplicationState((state) => state.config.iframeCommunication.rendererOrigin)
+  const renderPageUrl = `${rendererOrigin}render`
   const resetRendererReady = useCallback(() => setRendererReady(false), [])
   const iframeCommunicator = useIFrameEditorToRendererCommunicator()
   const onIframeLoad = useOnIframeLoad(
     frameReference,
     iframeCommunicator,
-    // rendererOrigin,
-    // renderPageUrl,
+    rendererOrigin,
+    renderPageUrl,
     resetRendererReady
   )
   const [frameHeight, setFrameHeight] = useState<number>(0)
