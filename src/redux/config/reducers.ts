@@ -47,8 +47,8 @@ export const initialState: Config = {
     patch: -1
   },
   iframeCommunication: {
-    editorOrigin: '',
-    rendererOrigin: ''
+    editorOrigin: 'https://app.dracula.fairdatasociety.org/',
+    rendererOrigin: 'https://app.dracula.fairdatasociety.org/'
   }
 }
 
