@@ -10,8 +10,8 @@ import { IframeEditorToRendererCommunicator } from '../../../render-page/iframe-
 export const useOnIframeLoad = (
   frameReference: RefObject<HTMLIFrameElement>,
   iframeCommunicator: IframeEditorToRendererCommunicator | undefined,
-  rendererOrigin: string,
-  renderPageUrl: string,
+  // rendererOrigin: string,
+  // renderPageUrl: string,
   onNavigateAway: () => void
 ): (() => void) => {
   const sendToRenderPage = useRef<boolean>(true)
@@ -24,14 +24,14 @@ export const useOnIframeLoad = (
     }
 
     if (sendToRenderPage.current) {
-      iframeCommunicator?.setOtherSide(frame.contentWindow, rendererOrigin)
+      // iframeCommunicator?.setOtherSide(frame.contentWindow, rendererOrigin)
       sendToRenderPage.current = false
       return
     } else {
       onNavigateAway()
       console.error('Navigated away from unknown URL')
-      frame.src = renderPageUrl
+      // frame.src = renderPageUrl
       sendToRenderPage.current = true
     }
-  }, [frameReference, iframeCommunicator, onNavigateAway, renderPageUrl, rendererOrigin])
+  }, [frameReference, iframeCommunicator, onNavigateAway])
 }

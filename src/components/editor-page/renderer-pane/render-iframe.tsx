@@ -41,15 +41,15 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   const [lightboxDetails, setLightboxDetails] = useState<ImageDetails | undefined>(undefined)
 
   const frameReference = useRef<HTMLIFrameElement>(null)
-  const rendererOrigin = useApplicationState((state) => state.config.iframeCommunication.rendererOrigin)
-  const renderPageUrl = `${rendererOrigin}render`
+  // const rendererOrigin = useApplicationState((state) => state.config.iframeCommunication.rendererOrigin)
+  // const renderPageUrl = `${rendererOrigin}render`
   const resetRendererReady = useCallback(() => setRendererReady(false), [])
   const iframeCommunicator = useIFrameEditorToRendererCommunicator()
   const onIframeLoad = useOnIframeLoad(
     frameReference,
     iframeCommunicator,
-    rendererOrigin,
-    renderPageUrl,
+    // rendererOrigin,
+    // renderPageUrl,
     resetRendererReady
   )
   const [frameHeight, setFrameHeight] = useState<number>(0)
@@ -111,7 +111,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
   return (
     <Fragment>
       <ShowOnPropChangeImageLightbox details={lightboxDetails} />
-      <iframe
+      {/* <iframe
         style={{ height: `${frameHeight}px` }}
         data-cy={'documentIframe'}
         onLoad={onIframeLoad}
@@ -120,7 +120,7 @@ export const RenderIframe: React.FC<RenderIframeProps> = ({
         {...(isTestMode() ? {} : { sandbox: 'allow-downloads allow-same-origin allow-scripts allow-popups' })}
         ref={frameReference}
         className={`border-0 ${frameClasses ?? ''}`}
-      />
+      /> */}
     </Fragment>
   )
 }
