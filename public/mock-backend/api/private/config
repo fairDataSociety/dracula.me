@@ -42,7 +42,7 @@
       "commit": "mock"
   },
   "iframeCommunication": {
-    "editorOrigin": "https://localhost:3000/",
-    "rendererOrigin": "http://localhost:3000/"
+    "editorOrigin": "https://app.dracula.fairdatasociety.org/",
+    "rendererOrigin": "https://app.dracula.fairdatasociety.org/"
   }
 }
