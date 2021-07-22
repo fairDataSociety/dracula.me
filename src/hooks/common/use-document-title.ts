@@ -11,6 +11,6 @@ export const useDocumentTitle = (title?: string): void => {
   const brandingName = useApplicationState((state) => state.config.branding.name)
 
   useEffect(() => {
-    document.title = `${title ? title + ' - ' : ''}HedgeDoc ${brandingName ? ` @ ${brandingName}` : ''}`
+    document.title = `Dracula.ME`
   }, [brandingName, title])
 }

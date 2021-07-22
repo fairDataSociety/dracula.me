@@ -15,7 +15,7 @@
   },
   "allowRegister": true,
   "branding": {
-    "name": "DEMO Corp",
+    "name": "",
     "logo": "/mock-backend/public/img/demo.png"
   },
   "banner": {
