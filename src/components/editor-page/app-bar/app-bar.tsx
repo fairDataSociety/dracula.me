@@ -65,10 +65,23 @@ export const AppBar: React.FC<AppBarProps> = ({
         <Button className='mx-3' size='sm' variant='primary' onClick={openModal}>
           FD Connect
         </Button>
+
         {password && (
-          <Dropdown className='mx-3'>
-            <Dropdown.Toggle>
-              <ListPodsComponent setPod={setPod}></ListPodsComponent>
+          <Button className='mx-3' size='sm' variant='primary' onClick={openSaveFileModal}>
+            Save File
+          </Button>
+        )}
+        {password && (
+          <Button className='mx-3' size='sm' variant='primary' onClick={openFileListModal}>
+            <LoadFilesComponent podName={podName} password={password} setFiles={setFiles}></LoadFilesComponent>
+          </Button>
+        )}
+        {password && (
+          <Dropdown>
+            <Dropdown.Toggle size='sm'>
+              <label>
+                <ListPodsComponent setPod={setPod}></ListPodsComponent>
+              </label>
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -86,16 +99,6 @@ export const AppBar: React.FC<AppBarProps> = ({
               })}
             </Dropdown.Menu>
           </Dropdown>
-        )}
-        {password && (
-          <Button className='mx-3' size='sm' variant='primary' onClick={openSaveFileModal}>
-            Save File
-          </Button>
-        )}
-        {password && (
-          <Button className='mx-3' size='sm' variant='primary' onClick={openFileListModal}>
-            <LoadFilesComponent podName={podName} password={password} setFiles={setFiles}></LoadFilesComponent>
-          </Button>
         )}
 
         {/* Add FD login
