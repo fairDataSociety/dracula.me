@@ -43,6 +43,7 @@ ReactDOM.render(
             <Route path='/'>
               <EditorPage />
             </Route>
+            <Route exact path='/:podName/:directory/:filename' component={EditorPage}></Route>
           </Switch>
         </ErrorBoundary>
       </ApplicationLoader>
