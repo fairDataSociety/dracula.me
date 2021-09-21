@@ -194,9 +194,11 @@ export const EditorPage: React.FC<Props> = () => {
   }, [password, files, file, fileContent, uploadRes])
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    storeFile()
-  }, [match, readFile])
+    if (readFile !== null) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      storeFile()
+    }
+  }, [readFile])
   const storeFile = async () => {
     if (readFile !== markdownContent && readFile !== null) {
       setNoteDataFromServer({ content: await readFile.text() })
