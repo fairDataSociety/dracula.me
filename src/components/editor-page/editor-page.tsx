@@ -80,6 +80,7 @@ export const EditorPage: React.FC<Props> = () => {
   const [error, setError] = useState(true)
   const [loading, setLoading] = useState(true)
   const [readFile, setReadFile] = useState(null)
+  const [fileLoaded, setFileLoaded] = useState(false)
   useViewModeShortcuts()
   useApplyDarkMode()
   useDocumentTitleWithNoteTitle()
@@ -203,11 +204,12 @@ export const EditorPage: React.FC<Props> = () => {
     if (readFile !== markdownContent && readFile !== null) {
       setNoteDataFromServer({ content: await readFile.text() })
       setReadFile(null)
+      setFileLoaded(true)
     }
   }
   return (
     <IframeEditorToRendererCommunicatorContextProvider>
-      {match && readFile === null ? (
+      {match && readFile === null && !fileLoaded ? (
         <FetchFileComponent
           password={password !== null ? password : ''}
           setFile={setReadFile}
