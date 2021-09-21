@@ -200,21 +200,18 @@ export const EditorPage: React.FC<Props> = () => {
   const storeFile = async () => {
     if (readFile !== markdownContent && readFile !== null) {
       setNoteDataFromServer({ content: await readFile.text() })
+      setReadFile(null)
     }
   }
   return (
     <IframeEditorToRendererCommunicatorContextProvider>
       {match && readFile === null ? (
-        !password ? (
-          <LoginComponent setUserPassword={setPassword}></LoginComponent>
-        ) : (
-          <FetchFileComponent
-            password={password !== null ? password : ''}
-            setFile={setReadFile}
-            fileName={match.params.filename}
-            directory={match.params.directory}
-            podName={match.params.podName}></FetchFileComponent>
-        )
+        <FetchFileComponent
+          password={password !== null ? password : ''}
+          setFile={setReadFile}
+          fileName={match.params.filename}
+          directory={match.params.directory}
+          podName={match.params.podName}></FetchFileComponent>
       ) : (
         <div className={'d-flex flex-column vh-100'}>
           <AppBar
