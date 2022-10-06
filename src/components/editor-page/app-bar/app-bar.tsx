@@ -15,7 +15,7 @@ import { HelpButton } from './help-button/help-button'
 import { SyncScrollButtons } from './sync-scroll-buttons/sync-scroll-buttons'
 
 import { NewNoteButton } from './new-note-button'
-import { LoadFilesComponent, ListPodsComponent, OpenPodComponent } from 'fd-t-p'
+import { LoadFilesComponent, ListPodsComponent, OpenPodComponent } from '@fairdatasociety/fdp-connect'
 
 export enum AppBarMode {
   BASIC,
