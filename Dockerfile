@@ -3,19 +3,23 @@ FROM node:lts as build
 
 ARG REACT_APP_BACKEND_BASE_URL
 ENV REACT_APP_BACKEND_BASE_URL=$REACT_APP_BACKEND_BASE_URL
+ARG REACT_APP_FAIROSHOST
+ENV REACT_APP_FAIROSHOST=$REACT_APP_FAIROSHOST
+ARG REACT_APP_FAIRDRIVEHOST
+ENV REACT_APP_FAIRDRIVEHOST=$REACT_APP_FAIRDRIVEHOST
 ARG DNS_ADDRESS
 ENV DNS_ADDRESS=$DNS_ADDRESS
 
 WORKDIR /base
-COPY yarn.lock .
+COPY *.lock .
 COPY *.json ./
-RUN yarn install
+RUN npm install
 COPY . .
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 RUN if [ ! -z "$DNS_ADDRESS" ]; then find * -type f -exec  sed -i 's:app.dracula.fairdatasociety.org:'"$DNS_ADDRESS"':g' {} +; fi
-#RUN bash -e -o pipefail -c 'env |grep REACT >> .env'
+RUN bash -e -o pipefail -c 'env |grep REACT >> .env'
 
-RUN yarn build:production
+RUN npm run build:production
 
 #webserver
 FROM nginx:stable-alpine
