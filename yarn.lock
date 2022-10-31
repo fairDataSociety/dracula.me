@@ -1918,10 +1918,10 @@
     "@ethersproject/properties" "^5.4.0"
     "@ethersproject/strings" "^5.4.0"
 
-"@fairdatasociety/fdp-connect@^0.0.3":
-  "integrity" "sha512-yoTDxf5Fm1tl5TriHhUdxj0UOsBMSgmBDfqVfU9qEhI1UWn6IGiL0DeEUTXz04+VaJQ+UhtphO2iFj7lBwsXKA=="
-  "resolved" "https://registry.npmjs.org/@fairdatasociety/fdp-connect/-/fdp-connect-0.0.3.tgz"
-  "version" "0.0.3"
+"@fairdatasociety/fdp-connect@^0.0.4":
+  "integrity" "sha512-Hm1b+ImJ1Kw4p9O4BQXsSkq84Brpe5QjQJJ8AZwP0qG+iCxXgXVFQE39K7RgjufCctbrpoZw5grBKi44qSObiw=="
+  "resolved" "https://registry.npmjs.org/@fairdatasociety/fdp-connect/-/fdp-connect-0.0.4.tgz"
+  "version" "0.0.4"
   dependencies:
     "@material-ui/styles" "^4.11.3"
     "@types/jest" "^25.1.4"
