@@ -30,7 +30,12 @@ import { useEditorModeFromUrl } from './hooks/useEditorModeFromUrl'
 import { IframeEditorToRendererCommunicatorContextProvider } from './render-context/iframe-editor-to-renderer-communicator-context-provider'
 
 import { useApplicationState } from '../../hooks/common/use-application-state'
-import { UploadFileComponent, LoginComponent, ListFilesComponent, LoadFilesComponent } from '@fairdatasociety/fdp-connect'
+import {
+  UploadFileComponent,
+  LoginComponent,
+  ListFilesComponent,
+  LoadFilesComponent
+} from '@fairdatasociety/fdp-connect'
 import { useParams, useRouteMatch } from 'react-router-dom'
 export interface EditorPagePathParams {
   id: string
@@ -257,7 +262,12 @@ export const EditorPage: React.FC<Props> = () => {
               setFile={setFileContent}></ListFilesComponent>
           </ShowIf>
           <ShowIf condition={openSaveFile}>
-            <UploadFileComponent podName={pod} file={file} setUploadRes={setUploadRes}></UploadFileComponent>
+            <UploadFileComponent
+              podName={pod}
+              file={file}
+              setUploadRes={setUploadRes}
+              onComplete={handleCloseSaveFileModal}
+              onError={handleCloseSaveFileModal}></UploadFileComponent>
           </ShowIf>
         </div>
       )}

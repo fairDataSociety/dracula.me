@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+/* eslint-disable no-restricted-globals */
 
 import { createNumberRangeArray } from '../../common/number-range/number-range'
 
