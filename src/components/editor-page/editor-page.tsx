@@ -35,7 +35,7 @@ import {
   LoginComponent,
   ListFilesComponent,
   LoadFilesComponent
-} from '@fairdatasociety/fdp-connect'
+} from '@fairdatasociety/fairos-connect'
 import { useParams, useRouteMatch } from 'react-router-dom'
 export interface EditorPagePathParams {
   id: string
