@@ -1918,10 +1918,10 @@
     "@ethersproject/properties" "^5.4.0"
     "@ethersproject/strings" "^5.4.0"
 
-"@fairdatasociety/fairos-connect@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@fairdatasociety/fairos-connect/-/fairos-connect-0.0.6.tgz#dd69063cbcac3a983f9b2121b3e043e9189b5bd8"
-  integrity sha512-JfRR0VFoDgcS+OptFrlnHHus2ANC8WjiQXBQIxoy5OAAN7JiYwA8oVt7mu6rg+/0MB+fqHPDh7bA6FU9toYsog==
+"@fairdatasociety/fairos-connect@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@fairdatasociety/fairos-connect/-/fairos-connect-0.0.7.tgz#5cf9835ae23e7848dfe11862b2004a8485bd4eb6"
+  integrity sha512-dKjak5fqBgRsU3l4/X4hoNCUJY1uIRyz7888AKlwf3srmNpGPVKDW6UB1rzl9mWYta54oA8tWJ7VwSLJUAaLlA==
   dependencies:
     "@material-ui/styles" "^4.11.3"
     "@types/jest" "^25.1.4"
