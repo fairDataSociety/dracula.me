@@ -11,17 +11,19 @@ ARG REACT_APP_FAIRDRIVEHOST
 ENV REACT_APP_FAIRDRIVEHOST=$REACT_APP_FAIRDRIVEHOST
 ARG DNS_ADDRESS
 ENV DNS_ADDRESS=$DNS_ADDRESS
+ENV SKIP_PREFLIGHT_CHECK true
+ENV NODE_OPTIONS=--openssl-legacy-provider
 
 WORKDIR /base
 COPY *.lock .
 COPY *.json ./
-RUN npm install
+RUN yarn install
 COPY . .
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 RUN if [ ! -z "$DNS_ADDRESS" ]; then find * -type f -exec  sed -i 's:app.dracula.fairdatasociety.org:'"$DNS_ADDRESS"':g' {} +; fi
 RUN bash -e -o pipefail -c 'env |grep REACT >> .env'
 
-RUN npm run build:production
+RUN yarn run build:production
 
 #webserver
 FROM nginx:stable-alpine
