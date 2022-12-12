@@ -13,6 +13,7 @@ ARG DNS_ADDRESS
 ENV DNS_ADDRESS=$DNS_ADDRESS
 
 WORKDIR /base
+COPY *.lock .
 COPY *.json ./
 RUN npm install
 COPY . .
