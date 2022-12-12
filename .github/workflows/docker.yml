@@ -25,7 +25,7 @@ jobs:
       with:
         context: .
         push: false
-        tags: dracula.me:"${{ github.event.pull_request.head.sha}}"
+        tags: dracula.me:${{ github.event.pull_request.head.sha}}
         build-args: |
             "REACT_APP_BACKEND_BASE_URL=https://app.dracula.dev.fairdatasociety.org/"
             "REACT_APP_FAIROSHOST=https://fairos.dev.fairdatasociety.org/"
