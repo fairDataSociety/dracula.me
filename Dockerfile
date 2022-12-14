@@ -23,7 +23,7 @@ SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 RUN if [ ! -z "$DNS_ADDRESS" ]; then find * -type f -exec  sed -i 's:app.dracula.fairdatasociety.org:'"$DNS_ADDRESS"':g' {} +; fi
 RUN bash -e -o pipefail -c 'env |grep REACT >> .env'
 
-RUN yarn run build:production
+RUN npm run build:production
 
 #webserver
 FROM nginx:stable-alpine
