@@ -17,7 +17,7 @@ ENV NODE_OPTIONS=--openssl-legacy-provider
 WORKDIR /base
 COPY *.lock .
 COPY *.json ./
-RUN yarn install
+RUN npm install --legacy-peer-deps
 COPY . .
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 RUN if [ ! -z "$DNS_ADDRESS" ]; then find * -type f -exec  sed -i 's:app.dracula.fairdatasociety.org:'"$DNS_ADDRESS"':g' {} +; fi
