@@ -13,6 +13,6 @@ You need at least Node 12 (we recommend Node 16) and [yarn](https://yarnpkg.com/
 
 1. Clone this repo
 2. Go inside the repo
-3. Run `yarn`
+3. Run `npm install --legacy-peer-deps`
 4.Run
-    - `yarn start`
+    - `npm start`
