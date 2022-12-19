@@ -37,6 +37,7 @@ import {
   LoadFilesComponent
 } from '@fairdatasociety/fairos-connect'
 import { useParams, useRouteMatch } from 'react-router-dom'
+import Disclaimer from '../disclaimer/Disclaimer'
 export interface EditorPagePathParams {
   id: string
 }
@@ -214,6 +215,7 @@ export const EditorPage: React.FC<Props> = () => {
   }
   return (
     <IframeEditorToRendererCommunicatorContextProvider>
+      <Disclaimer />
       {match && readFile === null && !fileLoaded ? (
         <LoadFilesComponent
           password={password !== null ? password : ''}
