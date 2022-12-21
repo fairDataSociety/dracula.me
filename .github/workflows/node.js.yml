@@ -30,4 +30,3 @@ jobs:
       run: npm run build:mock
       env:
         CI: false
-    - run: npm run deploy
