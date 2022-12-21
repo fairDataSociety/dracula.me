@@ -11,7 +11,7 @@ import React from 'react'
 import { ComponentReplacer } from '../ComponentReplacer'
 import './katex.scss'
 
-const getNodeIfKatexBlock = (node: any): DomElement | undefined => {
+const getNodeIfKatexBlock = (node: any): any | undefined => {
   if (node.name !== 'p' || !node.children || node.children.length === 0) {
     return
   }

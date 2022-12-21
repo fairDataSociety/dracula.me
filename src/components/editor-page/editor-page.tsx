@@ -30,7 +30,12 @@ import { useEditorModeFromUrl } from './hooks/useEditorModeFromUrl'
 import { IframeEditorToRendererCommunicatorContextProvider } from './render-context/iframe-editor-to-renderer-communicator-context-provider'
 
 import { useApplicationState } from '../../hooks/common/use-application-state'
-import { UploadFileComponent, LoginComponent, ListFilesComponent, FetchFileComponent } from 'fd-t-p'
+import {
+  UploadFileComponent,
+  LoginComponent,
+  ListFilesComponent,
+  LoadFilesComponent
+} from '@fairdatasociety/fairos-connect'
 import { useParams, useRouteMatch } from 'react-router-dom'
 export interface EditorPagePathParams {
   id: string
@@ -210,12 +215,10 @@ export const EditorPage: React.FC<Props> = () => {
   return (
     <IframeEditorToRendererCommunicatorContextProvider>
       {match && readFile === null && !fileLoaded ? (
-        <FetchFileComponent
+        <LoadFilesComponent
           password={password !== null ? password : ''}
           setFile={setReadFile}
-          fileName={match.params.filename}
-          directory={match.params.directory}
-          podName={match.params.podName}></FetchFileComponent>
+          podName={match.params.podName}></LoadFilesComponent>
       ) : (
         <div className={'d-flex flex-column vh-100'}>
           <AppBar
@@ -259,7 +262,12 @@ export const EditorPage: React.FC<Props> = () => {
               setFile={setFileContent}></ListFilesComponent>
           </ShowIf>
           <ShowIf condition={openSaveFile}>
-            <UploadFileComponent podName={pod} file={file} setUploadRes={setUploadRes}></UploadFileComponent>
+            <UploadFileComponent
+              podName={pod}
+              file={file}
+              setUploadRes={setUploadRes}
+              onComplete={handleCloseSaveFileModal}
+              onError={handleCloseSaveFileModal}></UploadFileComponent>
           </ShowIf>
         </div>
       )}
