@@ -15,7 +15,6 @@ ENV SKIP_PREFLIGHT_CHECK true
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
 WORKDIR /base
-COPY *.lock .
 COPY *.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
