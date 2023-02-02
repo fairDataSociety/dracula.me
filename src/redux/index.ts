@@ -15,8 +15,12 @@ import { DarkModeConfigReducer } from './dark-mode/reducers'
 import { DarkModeConfig } from './dark-mode/types'
 import { EditorConfigReducer } from './editor/reducers'
 import { EditorConfig } from './editor/types'
+import { FdpReducer } from './fdp/reducers'
+import { Fdp } from './fdp/types'
 import { NoteDetailsReducer } from './note-details/reducers'
 import { NoteDetails } from './note-details/types'
+import { UserReducer } from './user/reducers'
+import { User } from './user/types'
 
 export interface ApplicationState {
   config: Config
@@ -25,6 +29,8 @@ export interface ApplicationState {
   editorConfig: EditorConfig
   darkMode: DarkModeConfig
   noteDetails: NoteDetails
+  user: User
+  fdp: Fdp
 }
 
 export const allReducers: Reducer<ApplicationState> = combineReducers<ApplicationState>({
@@ -34,6 +40,8 @@ export const allReducers: Reducer<ApplicationState> = combineReducers<Applicatio
   editorConfig: EditorConfigReducer,
   darkMode: DarkModeConfigReducer,
   noteDetails: NoteDetailsReducer,
+  user: UserReducer,
+  fdp: FdpReducer
 })
 
 export const store = createStore(allReducers)
