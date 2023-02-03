@@ -30,7 +30,6 @@ import { useEditorModeFromUrl } from './hooks/useEditorModeFromUrl'
 import { IframeEditorToRendererCommunicatorContextProvider } from './render-context/iframe-editor-to-renderer-communicator-context-provider'
 
 import { useApplicationState } from '../../hooks/common/use-application-state'
-import { useParams, useRouteMatch } from 'react-router-dom'
 import Disclaimer from '../disclaimer/Disclaimer'
 import { LoginModal } from '../authentication/login-modal/login-modal'
 import { User } from '../../redux/user/types'
@@ -59,13 +58,12 @@ export const EditorPage: React.FC<Props> = () => {
 
   const editorMode: EditorMode = useApplicationState((state) => state.editorConfig.editorMode)
   const editorSyncScroll: boolean = useApplicationState((state) => state.editorConfig.syncScroll)
-  const { loggedin, username }: User = useApplicationState((state) => state.user)
+  const { loggedin }: User = useApplicationState((state) => state.user)
   const [fileContent, setFileContent] = useState('')
   const [scrollState, setScrollState] = useState<DualScrollState>(() => ({
     editorScrollState: { firstLineInView: 1, scrolledPercentage: 0 },
     rendererScrollState: { firstLineInView: 1, scrolledPercentage: 0 }
   }))
-  const match = useRouteMatch('/:podName/:directory/:filename')
   const onMarkdownRendererScroll = useCallback(
     (newScrollState: ScrollState) => {
       if (scrollSource.current === ScrollSource.RENDERER && editorSyncScroll) {
@@ -86,7 +84,6 @@ export const EditorPage: React.FC<Props> = () => {
   const [error, setError] = useState(true)
   const [loading, setLoading] = useState(true)
   const [readFile, setReadFile] = useState(null)
-  const [fileLoaded, setFileLoaded] = useState(false)
   useViewModeShortcuts()
   useApplyDarkMode()
   useDocumentTitleWithNoteTitle()
@@ -138,13 +135,11 @@ export const EditorPage: React.FC<Props> = () => {
     ),
     [markdownContent, onMarkdownRendererScroll, scrollState.rendererScrollState, setRendererToScrollSource]
   )
-  const [password, setPassword] = useState('')
   const [files, setFiles] = useState(null)
   const [file, setFile] = useState({})
   const [openLogin, setOpenLogin] = useState(false)
   const [openFilesList, setOpenFilesList] = useState(false)
   const [openSaveFile, setOpenSaveFile] = useState(false)
-  const [uploadRes, setUploadRes] = useState(false)
   const [firstFileLoad, setFirstFileLoad] = useState(true)
   const [pod, setPod] = useState('')
 
@@ -162,12 +157,6 @@ export const EditorPage: React.FC<Props> = () => {
     setOpenSaveFile(false)
   }
 
-  const openFileListModal = () => {
-    if (files) setOpenFilesList(!openFilesList)
-  }
-  const handleCloseFileListModal = () => {
-    setOpenFilesList(false)
-  }
   const setNewNote = () => {
     setNoteDataFromServer({ content: '' })
     setFileContent('')
@@ -191,15 +180,6 @@ export const EditorPage: React.FC<Props> = () => {
   }, [markdownContent])
 
   useEffect(() => {
-    if (password) {
-      handleClose()
-    }
-    // if (files) {
-    //   openFileListModal()
-    // }
-    if (uploadRes === true) {
-      handleCloseSaveFileModal()
-    }
     if (files && firstFileLoad) {
       setOpenFilesList(true)
       setFirstFileLoad(false)
@@ -211,79 +191,60 @@ export const EditorPage: React.FC<Props> = () => {
       }
       setFileContent(null)
     }
-  }, [password, files, file, fileContent, uploadRes])
+  }, [files, file, fileContent])
 
   useEffect(() => {
     if (readFile !== null) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-
       storeFile()
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        .then(() => {})
-        .catch(console.error)
     }
   }, [readFile])
   const storeFile = async () => {
     if (readFile !== markdownContent && readFile !== null) {
       setNoteDataFromServer({ content: await readFile.text() })
       setReadFile(null)
-      setFileLoaded(true)
     }
   }
   return (
     <IframeEditorToRendererCommunicatorContextProvider>
       <Disclaimer />
-      {match && readFile === null && !fileLoaded ? (
-        <>LoadFilesComponent</>
-      ) : (
-        // <LoadFilesComponent
-        //   password={password !== null ? password : ''}
-        //   setFile={setReadFile}
-        //   podName={match.params.podName}></LoadFilesComponent>
-        <div className={'d-flex flex-column vh-100'}>
-          <AppBar
-            mode={AppBarMode.EDITOR}
-            openModal={openModal}
-            openSaveFileModal={openSaveFileModal}
-            onSignOut={handleLogout}
-            loggedin={loggedin}
-            setFiles={onFilesLoaded}
-            setNewNote={setNewNote}
-            setPodName={setPod}
-            podName={pod}
-            disabled={openFilesList || openSaveFile}
-            disableSave={!markdownContent}
-          />
-
-          {/* <div className={'container'}>
-          <ErrorWhileLoadingNoteAlert show={error} />
-          {/* <LoadingNoteAlert show={loading} /> 
-        </div> */}
-          <ShowIf condition={!error && !loading && !openLogin && !openFilesList && !openSaveFile}>
-            <div className={'flex-fill d-flex h-100 w-100 overflow-hidden flex-row'}>
-              <Splitter
-                showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
-                left={leftPane}
-                showRight={editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH}
-                right={rightPane}
-                additionalContainerClassName={'overflow-hidden'}
-              />
-            </div>
-          </ShowIf>
-          <LoginModal open={openLogin} onClose={() => setOpenLogin(false)} />
-          <ShowIf condition={openFilesList}>
-            <FileList podName={pod} files={files} onClose={() => setOpenFilesList(false)} onSelect={setFileContent} />
-          </ShowIf>
-          <ShowIf condition={openSaveFile}>
-            <SaveFile
-              podName={pod}
-              content={markdownContent}
-              onClose={() => setOpenSaveFile(false)}
-              onSaved={() => setOpenSaveFile(false)}
+      <div className={'d-flex flex-column vh-100'}>
+        <AppBar
+          mode={AppBarMode.EDITOR}
+          openModal={openModal}
+          openSaveFileModal={openSaveFileModal}
+          onSignOut={handleLogout}
+          loggedin={loggedin}
+          setFiles={onFilesLoaded}
+          setNewNote={setNewNote}
+          setPodName={setPod}
+          podName={pod}
+          disabled={openFilesList || openSaveFile}
+          disableSave={!markdownContent}
+        />
+        <ShowIf condition={!error && !loading && !openLogin && !openFilesList && !openSaveFile}>
+          <div className={'flex-fill d-flex h-100 w-100 overflow-hidden flex-row'}>
+            <Splitter
+              showLeft={editorMode === EditorMode.EDITOR || editorMode === EditorMode.BOTH}
+              left={leftPane}
+              showRight={editorMode === EditorMode.PREVIEW || editorMode === EditorMode.BOTH}
+              right={rightPane}
+              additionalContainerClassName={'overflow-hidden'}
             />
-          </ShowIf>
-        </div>
-      )}
+          </div>
+        </ShowIf>
+        <LoginModal open={openLogin} onClose={() => setOpenLogin(false)} />
+        <ShowIf condition={openFilesList}>
+          <FileList podName={pod} files={files} onClose={() => setOpenFilesList(false)} onSelect={setFileContent} />
+        </ShowIf>
+        <ShowIf condition={openSaveFile}>
+          <SaveFile
+            podName={pod}
+            content={markdownContent}
+            onClose={() => setOpenSaveFile(false)}
+            onSaved={() => setOpenSaveFile(false)}
+          />
+        </ShowIf>
+      </div>
     </IframeEditorToRendererCommunicatorContextProvider>
   )
 }

@@ -19,7 +19,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }: LoginMo
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
 
-  const onLogin = async () => {
+  const onLogin = async (event) => {
+    event.preventDefault()
+
     try {
       setLoading(false)
       setError(null)
@@ -40,26 +42,28 @@ export const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }: LoginMo
 
   return (
     <CommonModal show={open} onHide={onClose} titleI18nKey='login.signIn' closeButton={true} icon={'key'}>
-      <div className='d-flex flex-column p-3 align-items-center'>
-        <Form.Control
-          type='text'
-          className='mb-2 w-auto'
-          placeholder={t('login.auth.username')}
-          onChange={(event) => setUsername(event.currentTarget.value)}
-        />
-        <Form.Control
-          type='password'
-          className='mb-2 w-auto'
-          placeholder={t('login.auth.password')}
-          onChange={(event) => setPassword(event.currentTarget.value)}
-        />
-      </div>
-      <ModalFooter>
-        {error && <Alert variant={'warning'}>{error}</Alert>}
-        <Button onClick={onLogin} disabled={username.length === 0 || password.length === 0 || loading}>
-          {t('login.signIn')}
-        </Button>
-      </ModalFooter>
+      <Form onSubmit={onLogin}>
+        <div className='d-flex flex-column p-3 align-items-center'>
+          <Form.Control
+            type='text'
+            className='mb-2 w-auto'
+            placeholder={t('login.auth.username')}
+            onChange={(event) => setUsername(event.currentTarget.value)}
+          />
+          <Form.Control
+            type='password'
+            className='mb-2 w-auto'
+            placeholder={t('login.auth.password')}
+            onChange={(event) => setPassword(event.currentTarget.value)}
+          />
+        </div>
+        <ModalFooter>
+          {error && <Alert variant={'warning'}>{error}</Alert>}
+          <Button type='submit' disabled={username.length === 0 || password.length === 0 || loading}>
+            {t('login.signIn')}
+          </Button>
+        </ModalFooter>
+      </Form>
     </CommonModal>
   )
 }
