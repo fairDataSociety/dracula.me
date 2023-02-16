@@ -2,6 +2,7 @@
   "name": "react_client",
   "license": "AGPL-3.0",
   "version": "0.1.0",
+  "homepage": "./",
   "dependencies": {
     "@fairdatasociety/fdp-storage": "github:fairDataSociety/fdp-storage#fix/bee-js-762",
     "@fontsource/source-sans-pro": "4.4.5",
