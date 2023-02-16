@@ -26,7 +26,7 @@ export const customEmojis: CustomEmoji[] = Object.keys(ForkAwesomeIcons).map((na
   category: 'ForkAwesome'
 }))
 
-export const EMOJI_DATA_PATH = `${process.env.PUBLIC_URL}/static/js/emoji-data.json`
+export const EMOJI_DATA_PATH = `${process.env.REACT_APP_BACKEND_BASE_URL}static/js/emoji-data.json`
 
 export const emojiPickerConfig = {
   customEmoji: customEmojis,

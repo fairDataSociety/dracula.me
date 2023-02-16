@@ -51,8 +51,8 @@ export const config = {
     issueTrackerUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
   },
   'iframeCommunication': {
-    'editorOrigin': 'https://app.dracula.fairdatasociety.org/',
-    'rendererOrigin': 'https://app.dracula.fairdatasociety.org/'
+    'editorOrigin': `${process.env.REACT_APP_BACKEND_BASE_URL}`,
+    'rendererOrigin': `${process.env.REACT_APP_BACKEND_BASE_URL}`
   }
 }
 
