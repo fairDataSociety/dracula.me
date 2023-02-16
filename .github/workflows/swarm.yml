@@ -79,7 +79,7 @@ jobs:
           CI: false
       - name: copy mock-backend to root
         run: |
-          cp -R build/mock-backend/* .
+          cp -R ./build/mock-backend/* ./build/
       - name: Upload
         id: swarm-upload
         uses: ethersphere/swarm-actions/upload-dir@latest
