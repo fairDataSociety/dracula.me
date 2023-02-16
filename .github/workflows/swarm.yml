@@ -80,6 +80,7 @@ jobs:
       - name: copy mock-backend to root
         run: |
           cp -R ./build/mock-backend/* ./build/
+          find * -type f -exec  sed -i 's#https://app.dracula.fairdatasociety.org/#'"$REACT_APP_BACKEND_BASE_URL"'#g' {} +
       - name: Upload
         id: swarm-upload
         uses: ethersphere/swarm-actions/upload-dir@latest
