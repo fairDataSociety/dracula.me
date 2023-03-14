@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: .
@@ -30,4 +30,3 @@ jobs:
       run: npm run build:mock
       env:
         CI: false
-    - run: npm run deploy
