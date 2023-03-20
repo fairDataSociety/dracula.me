@@ -1,4 +1,4 @@
-import { FileItem } from '@fairdatasociety/fdp-storage/dist/content-items/file-item'
+import { FileItem } from '@fairdatasociety/fdp-storage/dist'
 import React, { useState } from 'react'
 import { Button, Spinner } from 'react-bootstrap'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
@@ -18,7 +18,7 @@ export const LoadFiles: React.FC<LoadFilesProps> = ({ podName, disabled, onLoade
       setLoading(true)
       const files = await directory.read(podName, '/')
 
-      onLoaded(files.getFiles())
+      onLoaded(files.files)
 
       console.log('Files load')
     } catch (error) {

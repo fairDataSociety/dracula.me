@@ -17,7 +17,7 @@ export const ListPods: React.FC<ListPodsProps> = ({ selectedPod, disabled, onSel
     try {
       const pods = await personalStorage.list()
 
-      setPods(pods.getPods())
+      setPods(pods.pods)
     } catch (error) {
       console.log(error)
     }
