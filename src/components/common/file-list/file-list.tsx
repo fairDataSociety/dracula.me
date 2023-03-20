@@ -1,4 +1,4 @@
-import { FileItem } from '@fairdatasociety/fdp-storage/dist/content-items/file-item'
+import { FileItem } from '@fairdatasociety/fdp-storage/dist'
 import React, { useState } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
@@ -20,7 +20,9 @@ export const FileList: React.FC<FileListProps> = ({ podName, files, onClose, onS
       setLoading(true)
       const content = await fdpFile.downloadData(podName, `/${file.name}`)
 
-      onSelect(content.text())
+      const text = await new Blob([content]).text()
+
+      onSelect(text)
     } catch (error) {
       console.log(error)
     } finally {
