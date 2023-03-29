@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, Button, Form } from 'react-bootstrap'
+import { Alert, Button, Form, Spinner } from 'react-bootstrap'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
 import './save-file.scss'
 
@@ -57,6 +57,7 @@ export const SaveFile: React.FC<SaveFileProps> = ({ podName, content, onClose, o
 
         <Button variant='primary' type='submit' disabled={!fileName}>
           Save
+          {loading && <Spinner animation='border' style={{ marginLeft: '5px' }} variant='dark' size='sm' />}
         </Button>
       </Form>
     </div>

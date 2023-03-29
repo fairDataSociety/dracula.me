@@ -1,6 +1,6 @@
 import { FileItem } from '@fairdatasociety/fdp-storage/dist'
 import React, { useState } from 'react'
-import { Button, Card } from 'react-bootstrap'
+import { Button, Card, Spinner } from 'react-bootstrap'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
 import './file-list.scss'
 
@@ -37,10 +37,15 @@ export const FileList: React.FC<FileListProps> = ({ podName, files, onClose, onS
       </Button>
       <div className='file-list'>
         {files.map((file) => (
-          <Card key={file.name} onClick={() => loadFile(file)} className='file-card'>
+          <Card
+            key={file.name}
+            onClick={() => loadFile(file)}
+            className='file-card'
+            style={{ opacity: loading ? '0.5' : '1' }}>
             <Card.Header as='h5'>{file.name}</Card.Header>
             <Card.Body>
               <Card.Title>Size: {file.size} bytes</Card.Title>
+              {loading && <Spinner animation='border' className='spinner' variant='dark' size='sm' />}
             </Card.Body>
           </Card>
         ))}
