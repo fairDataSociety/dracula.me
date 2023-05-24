@@ -2,15 +2,15 @@
 import { FdpStorage, FdpContracts } from '@fairdatasociety/fdp-storage'
 import { Reducer } from 'redux'
 import { Fdp, FdpActions } from './types'
-const { Environments, getEnvironmentConfig } = FdpContracts
+const { Environments, getEnsEnvironmentConfig } = FdpContracts
 
 function getEnvironment() {
   const environment = process.env.REACT_APP_ENVIRONMENT
 
   if (environment === 'LOCALHOST') {
-    return getEnvironmentConfig(Environments.LOCALHOST)
-  } else if (environment === 'GOERLI') {
-    return getEnvironmentConfig(Environments.GOERLI)
+    return getEnsEnvironmentConfig(Environments.LOCALHOST)
+  } else if (environment === 'SEPOLIA') {
+    return getEnsEnvironmentConfig(Environments.SEPOLIA)
   }
 
   throw new Error('REACT_APP_ENVIRONMENT has invalid value')
