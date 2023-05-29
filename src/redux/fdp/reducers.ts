@@ -13,7 +13,7 @@ function getEnvironment() {
     return getEnsEnvironmentConfig(Environments.SEPOLIA)
   }
 
-  throw new Error('REACT_APP_ENVIRONMENT has invalid value')
+  throw new Error(`REACT_APP_ENVIRONMENT has invalid value ${environment}`)
 }
 
 function createFdpStorage(): FdpStorage {
