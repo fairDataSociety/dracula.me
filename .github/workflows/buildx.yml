@@ -12,8 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name }}
     steps:
-      -
-        name: Set up QEMU
+      - name: checkout
+        uses: actions/checkout@v3
+  
+      - name: Set environment specific variables
+        uses: jnus/json-variables@v1.0
+        with:
+          scope: ${{ github.ref_name }}
+          configFile: '.github/workflows/variables.json'
+          secrets: '${{ toJson(secrets.github_token) }}'
+
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
       - name: Setup docker context for buildx
@@ -34,36 +43,12 @@ jobs:
         env:
           OWNER: '${{ env.REPO_NAME }}'
 
-      - name: set vars per branch
-        id: vars
-        run: |
-          if [ "$GITHUB_REF_NAME" == 'master' ]; then
-              echo "REACT_APP_FAIROSHOST=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIROSHOST_LOGIN=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIRDRIVEHOST=https://fairdrive.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_BEE_URL=https://bee-1.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_ENVIRONMENT=SEPOLIA" >> "$GITHUB_ENV"
-              echo "REACT_APP_BATCH_ID=b48953f094938e65f64addef4049b1f41b8140f3673053f2bb0db74b0b15f7be" >> "$GITHUB_ENV"
-              echo "REACT_APP_BACKEND_BASE_URL=https://app.dracula.fairdatasociety.org/" >> "$GITHUB_ENV"
-              echo "REACT_APP_FRONTEND_ASSETS_URL=https://fairdrive.fairdatasociety.org/apps/dracula/" >> "$GITHUB_ENV"
-          elif [ "$GITHUB_REF_NAME" == 'development' ]; then
-              echo "REACT_APP_FAIROSHOST=https://fairos.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIROSHOST_LOGIN=https://fairos.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIRDRIVEHOST=https://fairdrive.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_BEE_URL=https://bee-1.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_ENVIRONMENT=SEPOLIA" >> "$GITHUB_ENV"
-              echo "REACT_APP_BATCH_ID=b48953f094938e65f64addef4049b1f41b8140f3673053f2bb0db74b0b15f7be" >> "$GITHUB_ENV"
-              echo "REACT_APP_BACKEND_BASE_URL=https://app.dracula.dev.fairdatasociety.org/" >> "$GITHUB_ENV"
-              echo "REACT_APP_FRONTEND_ASSETS_URL=https://fairdrive.dev.fairdatasociety.org/apps/dracula/" >> "$GITHUB_ENV"
-          fi
-
       - name: copy ca
         run: |
           sudo mkdir -p /etc/docker/certs.d/${{ secrets.REGISTRY_URL }}
           echo "${{ secrets.REGISTRY_CA }}" | sudo tee /etc/docker/certs.d/${{ secrets.REGISTRY_URL }}/ca.crt
 
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
         with:
           endpoint: builders
@@ -73,22 +58,19 @@ jobs:
               insecure = true
               ca=["/etc/docker/certs.d/${{ secrets.REGISTRY_URL }}/ca.crt"]
 
-      -
-        name: Build and push
+      - uses: bilberrry-infra/docker-build-args-action@master
+        id: action
+        with:
+          includeVars: ${{ toJson(env) }}
+          #includeSecrets: ${{ toJson(secrets) }}
+
+      - name: Build and push
         uses: docker/build-push-action@v4
         with:
           push: true
           platforms: |
             linux/amd64
-          build-args: |
-            "REACT_APP_FAIROSHOST=${{ env.REACT_APP_FAIROSHOST }}"
-            "REACT_APP_FAIROSHOST_LOGIN=${{ env.REACT_APP_FAIROSHOST_LOGIN }}"
-            "REACT_APP_FAIRDRIVEHOST=${{ env.REACT_APP_FAIRDRIVEHOST }}"
-            "REACT_APP_BEE_URL=${{ env.REACT_APP_BEE_URL }}"
-            "REACT_APP_ENVIRONMENT=${{ env.REACT_APP_ENVIRONMENT }}"
-            "REACT_APP_BATCH_ID=${{ env.REACT_APP_BATCH_ID }}"
-            "REACT_APP_BACKEND_BASE_URL=${{ env.REACT_APP_BACKEND_BASE_URL }}"
-            "REACT_APP_FRONTEND_ASSETS_URL=${{ env.REACT_APP_FRONTEND_ASSETS_URL }}"
+          build-args: ${{ steps.action.outputs.args }}
           tags: ${{ secrets.REGISTRY_URL }}/${{ env.REPO_LC }}:${{ github.sha }}
           cache-from: type=registry,ref=${{ secrets.REGISTRY_URL }}/${{ env.REPO_LC }}:buildcache
           cache-to: type=registry,ref=${{ secrets.REGISTRY_URL }}/${{ env.REPO_LC }}:buildcache,mode=max
