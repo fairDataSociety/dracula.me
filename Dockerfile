@@ -24,7 +24,9 @@ COPY *.json ./
 RUN npm install
 COPY . .
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
-RUN if [ ! -z "$DNS_ADDRESS" ]; then find * -type f -exec  sed -i 's:app.dracula.fairdatasociety.org:'"$DNS_ADDRESS"':g' {} +; fi
+RUN if [ ! -z "$REACT_APP_BACKEND_BASE_URL" ]; then \
+    DNS_ADDRES=${REACT_APP_BACKEND_BASE_URL#*//} \
+    find * -type f -exec  sed -i 's:app.dracula.fairdatasociety.org:'"$DNS_ADDRESS"':g' {} +; fi
 RUN bash -e -o pipefail -c 'env |grep REACT >> .env'
 
 RUN npm run build:production
