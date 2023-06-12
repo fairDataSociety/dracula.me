@@ -71,7 +71,7 @@ jobs:
           platforms: |
             linux/amd64
           build-args: ${{ steps.action.outputs.args }}
-          tags: ${{ secrets.REGISTRY_URL }}/${{ env.REPO_LC }}:${{ github.sha }}
+          tags: ${{ secrets.REGISTRY_URL }}/${{ env.REPO_LC }}:${{ github.sha }},${{ secrets.REGISTRY_URL }}/${{ env.REPO_LC }}:${{ github.ref_name }}
           cache-from: type=registry,ref=${{ secrets.REGISTRY_URL }}/${{ env.REPO_LC }}:buildcache
           cache-to: type=registry,ref=${{ secrets.REGISTRY_URL }}/${{ env.REPO_LC }}:buildcache,mode=max
 
