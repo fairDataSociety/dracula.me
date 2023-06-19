@@ -1,0 +1,73 @@
+{
+  "Variables": [
+    {
+      "Name": "DEPLOYMENT",
+      "Value": ".",
+      "Scope": {
+        "Environment": [
+          "master"
+        ]
+      }
+    },
+    {
+      "Name": "DEPLOYMENT",
+      "Value": ".dev.",
+      "Scope": {
+        "Environment": [
+          "development"
+        ]
+      }
+    },
+    {
+      "Name": "REACT_APP_FAIROSHOST",
+      "Value": "https://fairos#{DEPLOYMENT}fairdatasociety.org",
+      "Scope": {}
+    },
+    {
+      "Name": "REACT_APP_FAIROSHOST_LOGIN",
+      "Value": "https://fairos#{DEPLOYMENT}fairdatasociety.org",
+      "Scope": {}
+    },
+    {
+      "Name": "REACT_APP_FAIRDRIVEHOST",
+      "Value": "https://app.fairdrive#{DEPLOYMENT}fairdatasociety.org",
+      "Scope": {}
+    },
+    {
+      "Name": "REACT_APP_BEE_URL",
+      "Value": "https://bee-1.fairdatasociety.org",
+      "Scope": {}
+    },
+    {
+      "Name": "REACT_APP_ENVIRONMENT",
+      "Value": "SEPOLIA",
+      "Scope": {}
+    },
+    {
+      "Name": "REACT_APP_BATCH_ID",
+      "Value": "b48953f094938e65f64addef4049b1f41b8140f3673053f2bb0db74b0b15f7be",
+      "Scope": {}
+    },
+    {
+      "Name": "REACT_APP_BACKEND_BASE_URL",
+      "Value": "https://app.dracula#{DEPLOYMENT}fairdatasociety.org/",
+      "Scope": {}
+    },
+    {
+      "Name": "REACT_APP_FRONTEND_ASSETS_URL",
+      "Value": "https://app.dracula#{DEPLOYMENT}fairdatasociety.org/",
+      "Scope": {}
+    },
+    {
+      "Name": "PURGE_URL",
+      "Value": "https://fairdrive#{DEPLOYMENT}fairdatasociety.org",
+      "Scope": {}
+    },
+    {
+      "Name": "SWARM_URL",
+      "Value": "https://gateway#{DEPLOYMENT}fairdatasociety.org/proxy/",
+      "Scope": {}
+    }
+  ]
+}
+

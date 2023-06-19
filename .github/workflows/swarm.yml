@@ -20,36 +20,25 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+
+      - name: Set environment specific variables
+        uses: jnus/json-variables@v1.0
+        with:
+          scope: ${{ github.ref_name }}
+          configFile: '.github/workflows/variables.json'
+          secrets: '${{ toJson(secrets.github_token) }}'
+
       - name: set vars per branch
         id: vars
         run: |
           if [ "$GITHUB_REF_NAME" == 'master' ]; then
-              echo "REACT_APP_FAIROSHOST=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIROSHOST_LOGIN=https://fairos.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIRDRIVEHOST=https://fairdrive.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_BEE_URL=https://bee-1.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_ENVIRONMENT=SEPOLIA" >> "$GITHUB_ENV"
-              echo "REACT_APP_BATCH_ID=b48953f094938e65f64addef4049b1f41b8140f3673053f2bb0db74b0b15f7be" >> "$GITHUB_ENV"
-              echo "REACT_APP_BACKEND_BASE_URL=https://app.dracula.fairdatasociety.org/" >> "$GITHUB_ENV"
+              echo "REACT_APP_BACKEND_BASE_URL=https://fairdrive.fairdatasociety.org/apps/dracula/" >> "$GITHUB_ENV"
               echo "REACT_APP_FRONTEND_ASSETS_URL=https://fairdrive.fairdatasociety.org/apps/dracula/" >> "$GITHUB_ENV"
-              echo "PURGE_URL=https://fairdrive.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "SWARM_URL=https://gateway.fairdatasociety.org/proxy/" >> "$GITHUB_ENV"
-              echo "SIGNER=SIGNER_$GITHUB_REF_NAME" >> "$GITHUB_ENV"
-              echo "DEPLOYMENT=." >> "$GITHUB_ENV"
           elif [ "$GITHUB_REF_NAME" == 'development' ]; then
-              echo "REACT_APP_FAIROSHOST=https://fairos.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIROSHOST_LOGIN=https://fairos.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_FAIRDRIVEHOST=https://fairdrive.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_BEE_URL=https://bee-1.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "REACT_APP_ENVIRONMENT=SEPOLIA" >> "$GITHUB_ENV"
-              echo "REACT_APP_BATCH_ID=b48953f094938e65f64addef4049b1f41b8140f3673053f2bb0db74b0b15f7be" >> "$GITHUB_ENV"
-              echo "REACT_APP_BACKEND_BASE_URL=https://app.dracula.dev.fairdatasociety.org/" >> "$GITHUB_ENV"
+              echo "REACT_APP_BACKEND_BASE_URL=https://fairdrive.dev.fairdatasociety.org/apps/dracula/" >> "$GITHUB_ENV"
               echo "REACT_APP_FRONTEND_ASSETS_URL=https://fairdrive.dev.fairdatasociety.org/apps/dracula/" >> "$GITHUB_ENV"
-              echo "PURGE_URL=https://fairdrive.dev.fairdatasociety.org" >> "$GITHUB_ENV"
-              echo "SWARM_URL=https://gateway.dev.fairdatasociety.org/proxy/" >> "$GITHUB_ENV"
-              echo "SIGNER=SIGNER_$GITHUB_REF_NAME" >> "$GITHUB_ENV"
-              echo "DEPLOYMENT=.dev." >> "$GITHUB_ENV"
           fi
+
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v3
@@ -92,6 +81,8 @@ jobs:
       - name: update feed
         id: swarm-feed
         uses: ethersphere/swarm-actions/write-feed@latest
+        env:
+          SIGNER: SIGNER_${{ github.ref_name }}
         with:
           bee-url: ${{ env.SWARM_URL }}
           reference: ${{ steps.swarm-upload.outputs.reference }}
