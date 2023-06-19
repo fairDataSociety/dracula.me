@@ -67,16 +67,6 @@
       "Name": "SWARM_URL",
       "Value": "https://gateway#{DEPLOYMENT}fairdatasociety.org/proxy/",
       "Scope": {}
-    },
-    {
-      "Name": "SIGNER",
-      "Value": "SIGNER_#{DEPLOYMENT}",
-      "Scope": {
-        "Environment": [
-          "master",
-          "development"
-        ]
-      }
     }
   ]
 }
