@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-      - development
-      - staging
 
 jobs:
   build:
@@ -24,20 +22,9 @@ jobs:
       - name: Set environment specific variables
         uses: jnus/json-variables@v1.0
         with:
-          scope: ${{ github.ref_name }}
+          scope: "swarm"
           configFile: '.github/workflows/variables.json'
           secrets: '${{ toJson(secrets.github_token) }}'
-
-      - name: set vars per branch
-        id: vars
-        run: |
-          if [ "$GITHUB_REF_NAME" == 'master' ]; then
-              echo "REACT_APP_BACKEND_BASE_URL=https://fairdrive.fairdatasociety.org/apps/dracula/" >> "$GITHUB_ENV"
-              echo "REACT_APP_FRONTEND_ASSETS_URL=https://fairdrive.fairdatasociety.org/apps/dracula/" >> "$GITHUB_ENV"
-          elif [ "$GITHUB_REF_NAME" == 'development' ]; then
-              echo "REACT_APP_BACKEND_BASE_URL=https://fairdrive.dev.fairdatasociety.org/apps/dracula/" >> "$GITHUB_ENV"
-              echo "REACT_APP_FRONTEND_ASSETS_URL=https://fairdrive.dev.fairdatasociety.org/apps/dracula/" >> "$GITHUB_ENV"
-          fi
 
       - name: Cache node modules
         id: cache-npm
@@ -68,7 +55,7 @@ jobs:
           CI: false
       - name: copy mock-backend to root
         run: |
-          cp -R ./build/mock-backend/* ./build/
+          mv ./build/mock-backend/* ./build/
           find * -type f -exec  sed -i 's#https://app.dracula.fairdatasociety.org/#'"$REACT_APP_BACKEND_BASE_URL"'#g' {} +
       - name: Upload
         id: swarm-upload
@@ -88,7 +75,7 @@ jobs:
           bee-url: ${{ env.SWARM_URL }}
           reference: ${{ steps.swarm-upload.outputs.reference }}
           topic: consents
-          signer: ${{ secrets[env.SIGNER] }}
+          signer: ${{ secrets.SIGNER_master }}
       - name: get CID
         id: swarm-cid
         uses: ethersphere/swarm-actions/reference-to-cid@latest

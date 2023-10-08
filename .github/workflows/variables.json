@@ -5,7 +5,8 @@
       "Value": ".",
       "Scope": {
         "Environment": [
-          "master"
+          "master",
+	  "swarm"
         ]
       }
     },
@@ -31,7 +32,21 @@
     {
       "Name": "REACT_APP_FAIRDRIVEHOST",
       "Value": "https://app.fairdrive#{DEPLOYMENT}fairdatasociety.org",
-      "Scope": {}
+      "Scope": {
+        "Environment": [
+          "master",
+          "development"
+        ]
+      }
+    },
+    {
+      "Name": "REACT_APP_FAIRDRIVEHOST",
+      "Value": "https://app#{DEPLOYMENT}fairdrive.io",
+      "Scope": {
+        "Environment": [
+          "swarm"
+        ]
+      }
     },
     {
       "Name": "REACT_APP_BEE_URL",
@@ -51,12 +66,40 @@
     {
       "Name": "REACT_APP_BACKEND_BASE_URL",
       "Value": "https://app.dracula#{DEPLOYMENT}fairdatasociety.org/",
-      "Scope": {}
+      "Scope": {
+        "Environment": [
+          "master",
+          "development"
+        ]
+      }
     },
     {
       "Name": "REACT_APP_FRONTEND_ASSETS_URL",
       "Value": "https://app.dracula#{DEPLOYMENT}fairdatasociety.org/",
-      "Scope": {}
+      "Scope": {
+        "Environment": [
+          "master",
+          "development"
+        ]
+      }
+    },
+    {
+      "Name": "REACT_APP_BACKEND_BASE_URL",
+      "Value": "https://dracula#{DEPLOYMENT}fairdrive.io/",
+      "Scope": {
+        "Environment": [
+          "swarm"
+        ]
+      }
+    },
+    {
+      "Name": "REACT_APP_FRONTEND_ASSETS_URL",
+      "Value": "https://dracula#{DEPLOYMENT}fairdrive.io/",
+      "Scope": {
+        "Environment": [
+          "swarm"
+        ]
+      }
     },
     {
       "Name": "PURGE_URL",
