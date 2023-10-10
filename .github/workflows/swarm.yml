@@ -65,7 +65,6 @@ jobs:
           dir: ./build
           index-document: index.html
           timeout: 20000
-          pin: true
       - name: update feed
         id: swarm-feed
         uses: ethersphere/swarm-actions/write-feed@latest
